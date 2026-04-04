@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer Dashboard - KSM Workshop{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron shadow p-5 bg-white rounded">
+            <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+            <p class="lead">This is your customer dashboard. Here you can view your bookings, estimates, and case studies.</p>
+            <hr class="my-4">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Bookings</h5>
+                            <p class="card-text">Manage your service bookings.</p>
+                            <a href="#" class="btn btn-primary disabled">View My Bookings</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Inquiries</h5>
+                            <p class="card-text">Request a new estimate or quote.</p>
+                            <a href="#" class="btn btn-primary disabled">New Inquiry</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Account</h5>
+                            <p class="card-text">Manage your profile and settings.</p>
+                            <a href="#" class="btn btn-outline-primary disabled">Update Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - KSM Workshop{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-5 mb-4 bg-light rounded-3 shadow">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Professional Workshop Services</h1>
+                <p class="col-md-8 fs-4">Welcome to KSM Workshop! We provide top-quality maintenance, repairs, and customization for your machinery and equipment.</p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+                {% else %}
+                    <a href="{% if user.is_staff or user.is_admin %}{% url 'admin_dashboard' %}{% else %}{% url 'customer_dashboard' %}{% endif %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <h2>Services</h2>
+        <p>Explore our range of expert services tailored to your needs.</p>
+        <p><a class="btn btn-outline-secondary" href="#">View Services &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Case Studies</h2>
+        <p>Check out our successful projects and specialized solutions.</p>
+        <p><a class="btn btn-outline-secondary" href="#">Read Cases &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Blog</h2>
+        <p>Get the latest updates and tips from our workshop experts.</p>
+        <p><a class="btn btn-outline-secondary" href="#">Visit Blog &raquo;</a></p>
+    </div>
+</div>
+{% endblock %}

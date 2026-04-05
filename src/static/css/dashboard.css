@@ -1,0 +1,110 @@
+/* Dashboard CSS for KSM Admin */
+
+:root {
+    --sidebar-bg: #004d40;
+    --sidebar-hover: #00695c;
+    --sidebar-text: #ffffff;
+    --card-bg-blue: #37474f;
+    --card-bg-orange: #ffb74d;
+    --card-bg-green: #66bb6a;
+    --content-bg: #f5f5f5;
+}
+
+body {
+    background-color: var(--content-bg);
+}
+
+#wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+#sidebar-wrapper .list-group {
+    width: 100%;
+}
+
+#sidebar-wrapper .list-group-item {
+    background-color: transparent;
+    color: var(--sidebar-text);
+    border: none;
+    padding: 1rem 1.5rem;
+    transition: background 0.3s;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: var(--sidebar-hover);
+}
+
+#sidebar-wrapper .list-group-item i {
+    margin-right: 10px;
+}
+
+/* Main Content */
+#page-content-wrapper {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Metric Cards */
+.metric-card {
+    border-radius: 12px;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.metric-card .title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.metric-card .value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.metric-card .icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.bg-metric-blue { background-color: var(--card-bg-blue); }
+.bg-metric-orange { background-color: var(--card-bg-orange); }
+.bg-metric-green { background-color: var(--card-bg-green); }
+
+/* Charts */
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}

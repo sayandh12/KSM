@@ -11,17 +11,11 @@ def register_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect('customer_dashboard')
+            return redirect('home')
         messages.error(request, "Registration failed.")
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
-
-@login_required
-def customer_dashboard(request):
-    if request.user.is_staff or request.user.is_admin:
-        return redirect('admin_dashboard')
-    return render(request, 'accounts/customer_dashboard.html')
 
 @login_required
 @user_passes_test(lambda u: u.is_staff or u.is_admin)

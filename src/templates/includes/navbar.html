@@ -1,29 +1,42 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">KSM Workshop</a>
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}" style="min-width: 200px;">
+            <!-- Space reserved for logo -->
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'services_list' %}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'case_studies_list' %}">Case Study</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_list' %}">Blog</a>
+                </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
                 {% if user.is_authenticated %}
+                    {% if user.is_staff or user.is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-sm btn-outline-primary text-white border-0 px-3" href="{% url 'admin_dashboard' %}">Dashboard</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% if user.is_staff or user.is_admin %}{% url 'admin_dashboard' %}{% else %}{% url 'customer_dashboard' %}{% endif %}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link btn btn-primary px-3 rounded-pill" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
             </ul>

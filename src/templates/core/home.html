@@ -1,25 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home - KSM Workshop{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="p-5 mb-4 bg-light rounded-3 shadow">
-            <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold">Professional Workshop Services</h1>
-                <p class="col-md-8 fs-4">Welcome to KSM Workshop! We provide top-quality maintenance, repairs, and customization for your machinery and equipment.</p>
-                {% if not user.is_authenticated %}
-                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
-                {% else %}
-                    <a href="{% if user.is_staff or user.is_admin %}{% url 'admin_dashboard' %}{% else %}{% url 'customer_dashboard' %}{% endif %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
-                {% endif %}
+<header class="video-hero text-center text-white">
+    <video autoplay muted loop playsinline class="video-bg" poster="https://via.placeholder.com/1920x1080/212529/ffffff?text=KSM+Workshop">
+        <source src="{% static 'videos/Cinematic_Automotive_Repair_Video.mp4' %}" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="display-3 fw-bold mb-3">
+            <span class="reveal-container">
+                <span id="dynamic-title" class="slide-in">Professional Workshop Services</span>
+            </span>
+        </h1>
+        <p class="lead mb-4 fs-4 mx-auto" style="max-width: 800px;">Experience top-quality maintenance, repairs, and customization for your machinery with precision and expertise.</p>
+        <div class="d-flex justify-content-center gap-3">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">Get Started</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill shadow-lg">Login</a>
+            {% elif user.is_staff or user.is_admin %}
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">Admin Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+{% if user.is_authenticated and not user.is_staff and not user.is_admin %}
+<div class="row mb-5">
+    <div class="col-md-12 text-center mb-4">
+        <h2 class="display-6">My Dashboard</h2>
+        <hr class="w-25 mx-auto">
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-primary">
+            <div class="card-body text-center">
+                <i class="bi bi-calendar-check fs-1 text-primary mb-3"></i>
+                <h3 class="card-title">Bookings</h3>
+                <p class="card-text text-muted">Manage your service bookings and track their status.</p>
+                <a href="#" class="btn btn-primary disabled">View My Bookings</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-primary">
+            <div class="card-body text-center">
+                <i class="bi bi-chat-dots fs-1 text-primary mb-3"></i>
+                <h3 class="card-title">Inquiries</h3>
+                <p class="card-text text-muted">Request a new estimate or quote for your equipment.</p>
+                <a href="#" class="btn btn-primary disabled">New Inquiry</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-primary">
+            <div class="card-body text-center">
+                <i class="bi bi-person-circle fs-1 text-primary mb-3"></i>
+                <h3 class="card-title">Account</h3>
+                <p class="card-text text-muted">Update your profile information and account settings.</p>
+                <a href="#" class="btn btn-outline-primary disabled">Update Profile</a>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 
 <div class="row mb-5">
+    <div class="col-md-12 text-center mb-4">
+        <h2 class="display-6">Explore Our Services</h2>
+        <hr class="w-25 mx-auto">
+    </div>
     <div class="col-md-4">
         <h2>Services</h2>
         <p>Explore our range of expert services tailored to your needs.</p>
@@ -36,4 +87,39 @@
         <p><a class="btn btn-outline-secondary" href="#">Visit Blog &raquo;</a></p>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const titleElement = document.getElementById('dynamic-title');
+    const phrases = [
+        "Professional Workshop Services",
+        "Expert Machine Maintenance",
+        "Precision Engineering Solutions",
+        "Custom Fabrication Experts"
+    ];
+    let currentIndex = 0;
+    const chars = '!<>-_\\/[]{}—=+*^?#________';
+
+    function cyclePhrases() {
+        if (!titleElement) return;
+        
+        // Remove current animation and add slide-out
+        titleElement.classList.remove('slide-in');
+        titleElement.classList.add('slide-out');
+        
+        setTimeout(() => {
+            // Update text
+            currentIndex = (currentIndex + 1) % phrases.length;
+            titleElement.textContent = phrases[currentIndex];
+            
+            // Swap to slide-in
+            titleElement.classList.remove('slide-out');
+            titleElement.classList.add('slide-in');
+        }, 800); // Wait for smooth slide-out (0.8s)
+    }
+
+    // Cycle every 4 seconds for a more relaxed feel
+    setInterval(cyclePhrases, 4000);
+</script>
 {% endblock %}

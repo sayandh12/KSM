@@ -1,49 +1,125 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
-{% block title %}Admin Dashboard - KSM Workshop{% endblock %}
+{% block title %}KSM Dashboard - Welcome{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <div class="jumbotron shadow p-5 bg-dark text-white rounded">
-            <h1 class="display-4">Admin Dashboard</h1>
-            <p class="lead">Welcome, {{ user.username }}. You have administrative access.</p>
-            <hr class="my-4">
-            <div class="row text-center mt-4">
-                <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm bg-secondary text-white">
-                        <div class="card-body">
-                            <h3 class="card-title">Manage Services</h3>
-                            <a href="/admin/services/" class="btn btn-light mt-2">Go to Services</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm bg-secondary text-white">
-                        <div class="card-body">
-                            <h3 class="card-title">View Inquiries</h3>
-                            <a href="/admin/inquiries/" class="btn btn-light mt-2">Go to Inquiries</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm bg-secondary text-white">
-                        <div class="card-body">
-                            <h3 class="card-title">Blog Posts</h3>
-                            <a href="/admin/blog/" class="btn btn-light mt-2">Go to Blog</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm bg-secondary text-white">
-                        <div class="card-body">
-                            <h3 class="card-title">Full Django Admin</h3>
-                            <a href="/admin/" class="btn btn-warning mt-2">Django Admin</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h1 class="h3 display-5 mb-0">KSM Dashboard</h1>
+        <p class="text-muted">Welcome to KSM Workshop Business Management Center.</p>
+    </div>
+</div>
+
+<!-- Metric Cards -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="metric-card bg-metric-blue">
+            <div class="title">Total Customers</div>
+            <div class="value">70</div>
+            <div class="icon"><i class="fas fa-users"></i></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="metric-card bg-metric-orange">
+            <div class="title">Total Quiz Submitted</div>
+            <div class="value">38</div>
+            <div class="icon"><i class="fas fa-file-alt"></i></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="metric-card bg-metric-green">
+            <div class="title">Total Enquiries</div>
+            <div class="value">10</div>
+            <div class="icon"><i class="fas fa-envelope"></i></div>
         </div>
     </div>
 </div>
+
+<!-- Charts Section -->
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="chart-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="card-title">Content Activity Overview</h5>
+                <div>
+                    <span class="badge text-bg-light">Week</span>
+                    <span class="badge text-bg-primary">Month</span>
+                </div>
+            </div>
+            <canvas id="activityChart" style="height: 300px;"></canvas>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="chart-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="card-title">Enquiries</h5>
+                <a href="#" class="btn btn-sm btn-link text-primary p-0">View All</a>
+            </div>
+            <div class="text-center mb-3">
+                <h4 class="mb-0">10</h4>
+                <small class="text-muted">Total Enquiries</small>
+            </div>
+            <canvas id="enquiriesChart" style="height: 200px;"></canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Activity Chart (Line Chart)
+    const ctxActivity = document.getElementById('activityChart').getContext('2d');
+    const activityChart = new Chart(ctxActivity, {
+        type: 'line',
+        data: {
+            labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+            datasets: [{
+                label: 'Quizzes Submitted',
+                data: [0, 0, 5, 33, 10, 2],
+                borderColor: '#004d40',
+                backgroundColor: 'rgba(0, 77, 64, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#004d40'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { display: false } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Enquiries Chart (Small Line Chart)
+    const ctxEnquiries = document.getElementById('enquiriesChart').getContext('2d');
+    const enquiriesChart = new Chart(ctxEnquiries, {
+        type: 'line',
+        data: {
+            labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+            datasets: [{
+                label: 'Enquiries',
+                data: [0, 0, 1, 10, 2, 1],
+                borderColor: '#66bb6a',
+                backgroundColor: 'rgba(102, 187, 106, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#66bb6a'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { display: false },
+                x: { display: false }
+            }
+        }
+    });
+</script>
 {% endblock %}

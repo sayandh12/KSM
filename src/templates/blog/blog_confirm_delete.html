@@ -1,0 +1,31 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}Confirm Delete - KSM Dashboard{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-5">
+            <div class="mb-4">
+                <div class="avatar-lg mx-auto bg-soft-danger text-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+            </div>
+            <h2 class="h4 mb-3">Delete Blog Post?</h2>
+            <p class="text-muted mb-4">Are you sure you want to delete <strong>{{ object.title }}</strong>? This action cannot be undone.</p>
+            
+            <form method="POST" class="d-flex justify-content-center gap-3">
+                {% csrf_token %}
+                <a href="{% url 'blog_list_admin' %}" class="btn btn-light border px-4 py-2 rounded-3">Cancel</a>
+                <button type="submit" class="btn btn-danger px-4 py-2 rounded-3">Yes, Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-danger { background-color: rgba(220, 53, 69, 0.1); }
+    .avatar-lg { margin-bottom: 1.5rem; }
+    .rounded-4 { border-radius: 1rem !important; }
+</style>
+{% endblock %}

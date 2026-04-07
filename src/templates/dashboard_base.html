@@ -22,29 +22,20 @@
                 <a href="{% url 'admin_dashboard' %}" class="list-group-item list-group-item-action">
                     <i class="fas fa-th-large"></i> Dashboard
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'user_list' %}" class="list-group-item list-group-item-action">
                     <i class="fas fa-users"></i> Users
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'enquiry_list' %}" class="list-group-item list-group-item-action">
                     <i class="fas fa-envelope"></i> Enquiries
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-clipboard-list"></i> Quizzes
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-heartbeat"></i> Wellness Score
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-layer-group"></i> Modules
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-box"></i> Products
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-id-badge"></i> Archetypes
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'blog_list_admin' %}" class="list-group-item list-group-item-action">
                     <i class="fas fa-blog"></i> Blogs
+                </a>
+                <a href="{% url 'case_studies_admin_list' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-briefcase"></i> Case Studies
+                </a>
+                <a href="{% url 'gallery_admin_list' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-images"></i> Gallery
                 </a>
                 <hr class="mx-3 opacity-25">
                 <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">

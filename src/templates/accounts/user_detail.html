@@ -1,0 +1,113 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}{{ title }} - KSM Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-0">User Details</h1>
+        <p class="text-muted">Viewing information for <strong>{{ target_user.username }}</strong></p>
+    </div>
+    <a href="{% url 'user_list' %}" class="btn btn-light border">
+        <i class="fas fa-arrow-left me-2"></i> Back to List
+    </a>
+</div>
+
+<div class="row">
+    <!-- User Profile Card -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body text-center p-4">
+                <div class="avatar-lg bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                    <i class="fas fa-user fa-3x text-secondary"></i>
+                </div>
+                <h4 class="mb-1">{{ target_user.full_name|default:target_user.username }}</h4>
+                <p class="text-muted mb-3">{{ target_user.email }}</p>
+                
+                <div class="d-flex justify-content-center gap-2 mb-4">
+                    {% if target_user.is_staff or target_user.is_admin %}
+                        <span class="badge bg-soft-primary text-primary px-3 py-2">Admin</span>
+                    {% else %}
+                        <span class="badge bg-soft-success text-success px-3 py-2">Customer</span>
+                    {% endif %}
+                </div>
+
+                <hr class="my-4">
+                
+                <div class="text-start">
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Phone Number</small>
+                        <span>{{ target_user.phone_number|default:"Not Provided" }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Date Joined</small>
+                        <span>{{ target_user.date_joined|date:"F d, Y" }}</span>
+                    </div>
+                    <div>
+                        <small class="text-muted d-block">Last Login</small>
+                        <span>{{ target_user.last_login|date:"F d, Y H:i"|default:"Never" }}</span>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_superuser %}
+            <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                <!-- <div class="d-grid gap-2">
+                    <a href="{% url 'user_update' target_user.id %}" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i> Edit Account
+                    </a>
+                </div> -->
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Activity & Linked Content -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-transparent border-0 p-4 pb-0">
+                <h5 class="card-title mb-0">Linked Enquiries</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Subject</th>
+                                <th>Date</th>
+                                <th class="text-end pe-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enquiry in enquiries %}
+                            <tr>
+                                <td class="ps-4">
+                                    <h6 class="mb-0">{{ enquiry.subject|default:"General Enquiry" }}</h6>
+                                    <small class="text-muted">{{ enquiry.message|truncatechars:50 }}</small>
+                                </td>
+                                <td>{{ enquiry.created_at|date:"M d, Y" }}</td>
+                                <td class="text-end pe-4">
+                                    <a href="#" class="btn btn-sm btn-light border">View</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center py-5 text-muted">No enquiries found for this email.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-primary { background-color: rgba(0, 77, 64, 0.1); }
+    .text-primary { color: #004d40 !important; }
+    .bg-soft-success { background-color: rgba(102, 187, 106, 0.1); }
+    .text-success { color: #66bb6a !important; }
+    .avatar-lg { width: 100px; height: 100px; }
+    .rounded-4 { border-radius: 1rem !important; }
+</style>
+{% endblock %}

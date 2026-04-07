@@ -1,0 +1,60 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}{{ title }} - KSM Dashboard{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="d-flex align-items-center mb-4">
+            <a href="{% url 'gallery_admin_list' %}" class="btn btn-sm btn-light border me-3 rounded-circle" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-left small"></i>
+            </a>
+            <h1 class="h3 mb-0">{{ title }}</h1>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="{{ form.title.id_for_label }}" class="form-label fw-bold small text-uppercase text-muted">Photo Title</label>
+                        {{ form.title }}
+                        {{ form.title.errors }}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.category.id_for_label }}" class="form-label fw-bold small text-uppercase text-muted">Category</label>
+                        {{ form.category }}
+                        {{ form.category.errors }}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-uppercase text-muted">Image File</label>
+                        <div class="image-upload-wrapper border rounded-3 p-4 text-center bg-light">
+                            {% if form.instance.image %}
+                            <img src="{{ form.instance.image.url }}" class="img-fluid rounded mb-3 shadow-sm" style="max-height: 250px; object-fit: cover;">
+                            {% endif %}
+                            {{ form.image }}
+                            {{ form.image.errors }}
+                            <small class="text-muted d-block mt-2">Recommended size: 1200x800px or larger.</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <a href="{% url 'gallery_admin_list' %}" class="btn btn-light border px-4 rounded-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-5 rounded-3">
+                            {% if is_update %}Update{% else %}Upload{% endif %} Photo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-4 { border-radius: 1rem !important; }
+    .form-control { border-radius: 0.5rem; padding: 0.6rem 1rem; border: 1px solid #e0e0e0; }
+    .form-control:focus { border-color: #004d40; box-shadow: 0 0 0 0.2rem rgba(0, 77, 64, 0.1); }
+</style>
+{% endblock %}

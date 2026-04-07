@@ -11,55 +11,72 @@
 </div>
 
 <!-- Metric Cards -->
-<div class="row mt-4">
-    <div class="col-md-4">
+<div class="row mt-4 row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
+    <div class="col">
         <div class="metric-card bg-metric-blue">
             <div class="title">Total Customers</div>
-            <div class="value">70</div>
+            <div class="value">{{ total_users }}</div>
             <div class="icon"><i class="fas fa-users"></i></div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col">
         <div class="metric-card bg-metric-orange">
-            <div class="title">Total Quiz Submitted</div>
-            <div class="value">38</div>
+            <div class="title">Total Blogs</div>
+            <div class="value">{{ total_blogs }}</div>
             <div class="icon"><i class="fas fa-file-alt"></i></div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col">
         <div class="metric-card bg-metric-green">
             <div class="title">Total Enquiries</div>
-            <div class="value">10</div>
+            <div class="value">{{ total_enquiries }}</div>
             <div class="icon"><i class="fas fa-envelope"></i></div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="metric-card bg-metric-purple">
+            <div class="title">Case Studies</div>
+            <div class="value">{{ total_case_studies }}</div>
+            <div class="icon"><i class="fas fa-briefcase"></i></div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="metric-card bg-metric-cyan">
+            <div class="title">Gallery</div>
+            <div class="value">{{ total_gallery }}</div>
+            <div class="icon"><i class="fas fa-images"></i></div>
         </div>
     </div>
 </div>
 
 <!-- Charts Section -->
-<div class="row mt-4">
+<div class="row mt-4 d-flex align-items-stretch">
     <div class="col-md-8">
-        <div class="chart-container">
+        <div class="chart-container h-300 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="card-title">Content Activity Overview</h5>
-                <div>
-                    <span class="badge text-bg-light">Week</span>
+                <h5 class="card-title mb-0">Content Activity Overview</h5>
+                <div class="d-flex align-items-center">
+                    <span class="badge text-bg-light me-2">Week</span>
                     <span class="badge text-bg-primary">Month</span>
                 </div>
             </div>
-            <canvas id="activityChart" style="height: 300px;"></canvas>
+            <div class="chart-canvas-wrapper flex-fill-chart">
+                <canvas id="activityChart"></canvas>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="chart-container">
+        <div class="chart-container h-300 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="card-title">Enquiries</h5>
+                <div class="d-flex flex-column">
+                    <h5 class="card-title mb-0">Enquiries</h5>
+                    <small class="text-muted">{{ total_enquiries }} Total</small>
+                </div>
                 <a href="#" class="btn btn-sm btn-link text-primary p-0">View All</a>
             </div>
-            <div class="text-center mb-3">
-                <h4 class="mb-0">10</h4>
-                <small class="text-muted">Total Enquiries</small>
+            <div class="chart-canvas-wrapper flex-fill-chart">
+                <canvas id="enquiriesChart"></canvas>
             </div>
-            <canvas id="enquiriesChart" style="height: 200px;"></canvas>
         </div>
     </div>
 </div>
@@ -73,10 +90,10 @@
     const activityChart = new Chart(ctxActivity, {
         type: 'line',
         data: {
-            labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+            labels: {{ chart_labels|safe }},
             datasets: [{
-                label: 'Quizzes Submitted',
-                data: [0, 0, 5, 33, 10, 2],
+                label: 'Activity',
+                data: {{ chart_data|safe }},
                 borderColor: '#004d40',
                 backgroundColor: 'rgba(0, 77, 64, 0.1)',
                 tension: 0.4,
@@ -100,10 +117,10 @@
     const enquiriesChart = new Chart(ctxEnquiries, {
         type: 'line',
         data: {
-            labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+            labels: {{ chart_labels|safe }},
             datasets: [{
-                label: 'Enquiries',
-                data: [0, 0, 1, 10, 2, 1],
+                label: 'Activity',
+                data: {{ chart_data|safe }},
                 borderColor: '#66bb6a',
                 backgroundColor: 'rgba(102, 187, 106, 0.1)',
                 tension: 0.4,

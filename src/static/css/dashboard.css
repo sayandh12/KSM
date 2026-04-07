@@ -7,6 +7,8 @@
     --card-bg-blue: #37474f;
     --card-bg-orange: #ffb74d;
     --card-bg-green: #66bb6a;
+    --card-bg-purple: #7e57c2;
+    --card-bg-cyan: #26c6da;
     --content-bg: #f5f5f5;
 }
 
@@ -99,6 +101,8 @@ body {
 .bg-metric-blue { background-color: var(--card-bg-blue); }
 .bg-metric-orange { background-color: var(--card-bg-orange); }
 .bg-metric-green { background-color: var(--card-bg-green); }
+.bg-metric-purple { background-color: var(--card-bg-purple); }
+.bg-metric-cyan { background-color: var(--card-bg-cyan); }
 
 /* Charts */
 .chart-container {
@@ -107,4 +111,20 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     margin-bottom: 20px;
+}
+
+.chart-canvas-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.h-400 { height: 400px; }
+.h-350 { height: 350px; }
+.h-300 { height: 300px; }
+.h-250 { height: 250px; }
+.h-200 { height: 200px; }
+.h-150 { height: 150px; }
+.flex-fill-chart {
+    flex: 1 1 auto;
+    min-height: 0;
 }
